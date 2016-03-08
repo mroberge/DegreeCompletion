@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery UI Droppable - Simple photo manager</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style>
+        .ul {font-weight: bold;}
+        .geog { background: #ddf; }
+        .core { background: #fee; }
+        .elec { background: #fff; }
+        .course { float: left; line-height: 26px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center;}
+        .custom-state-active {  }
+
+        #requirements { float: left; width: 99%; min-height: 12em; }
+
+        #requirements h4 { line-height: 16px; margin: 0 0 0.4em; }
+        .requirements li {  }
+        .requirements li select { border: none; }
+
+
+        #completed { float: left; width: 31%; min-height: 18em; padding: 1%; }
+        #completed h4 { line-height: 16px; margin: 0 0 0.4em; }
+        #completed li { }
+
+        #current { float: left; width: 31%; min-height: 18em; padding: 1%; }
+        #current h4 { line-height: 16px; margin: 0 0 0.4em; }
+        #current li { }
+
+        #future { float: left; width: 31%; min-height: 18em; padding: 1%; }
+        #future h4 { line-height: 16px; margin: 0 0 0.4em; }
+        #future li { }
+
+    </style>
+    <script>
+        $(function() {
+            // there's the requirements, completed, current, and future
+            var $requirements = $( "#requirements" );
+            var $completed = $( "#completed" );
+            var $current = $( "#current" );
+            var $future = $( "#future" );
+
+            // let the requirements items be draggable
+            $( "li", $requirements ).draggable({
+                revert: "invalid", // when not dropped, the item will revert back to its initial position
+                containment: "document",
+                helper: "clone",
+                cursor: "move"
+            });
+
+            // let the requirements be droppable, accepting items from any
+            $requirements.droppable({
+                //accept: "#completed li",
+                hoverClass: "ui-state-highlight",
+                activeClass: "custom-state-active",
+                drop: function( event, ui ) {
+                    requirementItem( ui.draggable );
+                }
+            });
+
+            // let the completed be droppable, accepting items from any
+            $completed.droppable({
+                //accept: "#requirements > li",
+                hoverClass: "ui-state-highlight",
+                activeClass: "custom-state-active",
+                drop: function( event, ui ) {
+                    completeItem( ui.draggable );
+                }
+            });
+
+            $current.droppable({
+                hoverClass: "ui-state-highlight",
+                activeClass: "custom-state-active",
+                drop: function ( event, ui ) {
+                    currentItem( ui.draggable );
+                }
+            });
+
+            $future.droppable({
+                hoverClass: "ui-state-highlight",
+                activeClass: "custom-state-active",
+                drop: function ( event, ui ) {
+                    futureItem( ui.draggable );
+                }
+            });
+
+            function completeItem( $item ) {
+                $item.fadeOut(function() {
+                    var $list = $( "ul", $completed ).length ?
+                            $( "ul", $completed ) :
+                            $( "<ul class='complete ui-helper-reset'/>" ).appendTo( $completed );
+
+                    $item.appendTo( $list ).fadeIn(function() {
+                        $item.animate({  });
+                    });
+                });
+            }
+
+            function currentItem( $item ) {
+                $item.fadeOut(function() {
+                    var $list = $( "ul", $current ).length ?
+                            $( "ul", $current ) :
+                            $( "<ul class='current ui-helper-reset'/>" ).appendTo( $current );
+
+                    $item.appendTo( $list ).fadeIn(function() {
+                        $item.animate({  });
+                    });
+                });
+            }
+
+            function futureItem( $item ) {
+                $item.fadeOut(function() {
+                    var $list = $( "ul", $future ).length ?
+                            $( "ul", $future ) :
+                            $( "<ul class='future ui-helper-reset'/>" ).appendTo( $future );
+                    $item.appendTo( $list ).fadeIn(function() {
+                        $item.animate({  });
+                    });
+                });
+            }
+
+            function requirementItem( $item ) {
+                $item.fadeOut(function() {
+                    var $list = $( "ul", $requirements ).length ?
+                            $( "ul", $requirements ) :
+                            $( "<ul class='requirements ui-helper-reset'/>" ).appendTo( $requirements );
+                    $item.appendTo( $list ).fadeIn(function() {
+                        $item.animate({  });
+                    });
+                });
+            }
+
+            $("li").click(function( event ) {
+                var $item = $( this );
+                var $target = $( event.target );
+                completeItem( $item ); //This function is a little wonky if you click too quickly.
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div class="ui-widget ui-helper-clearfix">
+    <h1 >Degree Completion Plan</h1>
+    <div id="requirements" class="requirements ui-widget-content ui-state-default">
+        <h4 class="ui-widget-header">Requirements</h4>
+        <ul  class="ui-helper-reset ui-helper-clearfix">
+            <li class="ui-widget-content ui-corner-tr core course">Core 1</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 2</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 3</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 4</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 5</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 6</li>
+            <li class="ui-widget-content ui-corner-tr core ul course">Core 9</li>
+            <li class="ui-widget-content ui-corner-tr ul course">Upper Level</li>
+            <li class="ui-widget-content ui-corner-tr elec course">Elective</li>
+            <li class="ui-widget-content ui-corner-tr geog course">GEOG 101</li>
+            <li class="ui-widget-content ui-corner-tr geog course">
+                <select name="select">
+                    <option value="value1" selected>GEOG 102/105/109</option>
+                    <option value="value2">GEOG 102</option>
+                    <option value="value3">GEOG 105</option>
+                    <option value="value3">GEOG 109</option>
+                    <option value="value3">GEOG 110</option>
+                </select>
+            </li>
+            <li class="ui-widget-content ui-corner-tr geog course">GEOG 221</li>
+            <li class="ui-widget-content ui-corner-tr geog course">GEOG 232</li>
+            <li class="ui-widget-content ui-corner-tr geog ul course">GEOG 375</li>
+            <li class="ui-widget-content ui-corner-tr geog ul course">GEOG Regional</li>
+            <li class="ui-widget-content ui-corner-tr geog ul course">GEOG 401</li>
+            <li class="ui-widget-content ui-corner-tr geog ul course">GEOG Elective</li>
+        </ul>
+    </div>
+    <div id="completed" class="ui-widget-content ui-state-default">
+        <h4 class="ui-widget-header">Completed</h4>
+    </div>
+
+    <div id="current" class="ui-widget-content ui-state-default">
+        <h4 class="ui-widget-header">Current</h4>
+    </div>
+
+    <div id="future" class="ui-widget-content ui-state-default">
+        <h4 class="ui-widget-header">Future</h4>
+    </div>
+</div>
+
+
+</body>
+</html>
