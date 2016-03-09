@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>jQuery UI Droppable - Simple photo manager</title>
+    <title>Degree Completion Plan</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -132,10 +132,10 @@
                 });
             }
 
-            $("li").click(function( event ) {
+            $("li").dblclick(function( event ) {
                 var $item = $( this );
                 var $target = $( event.target );
-                completeItem( $item ); //This function is a little wonky if you click too quickly.
+                completeItem( $item ); 
             });
         });
     </script>
@@ -153,17 +153,25 @@
             <li class="ui-widget-content ui-corner-tr core course">Core 4</li>
             <li class="ui-widget-content ui-corner-tr core course">Core 5</li>
             <li class="ui-widget-content ui-corner-tr core course">Core 6</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 7</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 8</li>
             <li class="ui-widget-content ui-corner-tr core ul course">Core 9</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 10</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 11</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 12</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 13</li>
+            <li class="ui-widget-content ui-corner-tr core course">Core 14</li>
             <li class="ui-widget-content ui-corner-tr ul course">Upper Level</li>
             <li class="ui-widget-content ui-corner-tr elec course">Elective</li>
             <li class="ui-widget-content ui-corner-tr geog course">GEOG 101</li>
             <li class="ui-widget-content ui-corner-tr geog course">
-                <select name="select">
-                    <option value="value1" selected>GEOG 102/105/109</option>
-                    <option value="value2">GEOG 102</option>
-                    <option value="value3">GEOG 105</option>
-                    <option value="value3">GEOG 109</option>
-                    <option value="value3">GEOG 110</option>
+                <label for="humanGeog">Human GEOG</label>
+                <select id="humanGeog" name="select">
+                    <option value="value1" selected>102/105/109</option>
+                    <option value="value2">102</option>
+                    <option value="value3">105</option>
+                    <option value="value3">109</option>
+                    <option value="value3">110</option>
                 </select>
             </li>
             <li class="ui-widget-content ui-corner-tr geog course">GEOG 221</li>
